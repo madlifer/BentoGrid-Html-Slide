@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025-2026年技术部工作规划</title>
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(100px, auto);
+            gap: 1.5rem;
+        }
+        .bento-item {
+            border-radius: 1.5rem;
+            background-color: #f7f7f7;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .bento-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1);
+        }
+        .highlight, h1 .highlight {
+            color: #4D6BFE !important;
+        }
+        .highlight-bg {
+            background-color: #4D6BFE;
+        }
+        .highlight-gradient-bg {
+            background: linear-gradient(135deg, rgba(77, 107, 254, 0.2) 0%, rgba(77, 107, 254, 0.05) 100%);
+        }
+        .highlight-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(77, 107, 254, 0.15) 0%, rgba(77, 107, 254, 0) 70%);
+            pointer-events: none;
+        }
+        .font-black-chinese {
+            font-weight: 900;
+        }
+        .bento-item h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .bento-item p.subtitle {
+            font-size: 1rem;
+            color: #555;
+        }
+        .content-pane {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .content-pane.loading {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .word-cloud-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .project-tab {
+            background-color: #f3f4f6;
+            color: #374151;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            min-width: 140px;
+            white-space: nowrap;
+        }
+        
+        .project-tab:hover {
+            background-color: #e5e7eb;
+            transform: translateY(-2px);
+        }
+        
+        .project-tab.highlight-bg {
+            background: linear-gradient(135deg, #4D6BFE 0%, #6366f1 100%);
+            color: white;
+            font-weight: bold;
+        }
+        .highlight-gradient-bg {
+            background: linear-gradient(135deg, rgba(77, 107, 254, 0.2) 0%, rgba(77, 107, 254, 0.05) 100%);
+        }
+        .highlight-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(77, 107, 254, 0.15) 0%, rgba(77, 107, 254, 0) 70%);
+            pointer-events: none;
+        }
+        .font-black-chinese {
+            font-weight: 900;
+        }
+        .bento-item h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .bento-item p.subtitle {
+            font-size: 1rem;
+            color: #555;
+        }
+        .content-pane {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .content-pane.loading {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .word-cloud-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            max-width: 500px; /* Constrain width to force wrapping */
+            margin: 0 auto; /* Center the container */
+        }
+        .word-cloud-container .project-tab {
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .word-cloud-container .project-tab:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 lg:p-8">
+
+    <div class="max-w-[1920px] mx-auto">
+        <main class="bento-grid">
+            <!-- Header -->
+            <div id="header-module" class="col-span-12 lg:col-span-8 row-span-2 bento-item flex-col justify-center items-center text-center relative group">
+                <!-- Previous Page Button -->
+                <button id="prev-btn-header" class="absolute top-4 left-4 w-10 h-10 bg-gray-400 bg-opacity-50 hover:bg-opacity-70 rounded-full flex items-center justify-center text-white transition-all duration-200 opacity-0 group-hover:opacity-100 hidden" title="上一页 (←)">
+                    <i class="fas fa-arrow-left text-sm"></i>
+                </button>
+                <!-- Next Page Button -->
+                <button id="next-btn-header" class="absolute top-4 right-4 w-10 h-10 bg-gray-400 bg-opacity-50 hover:bg-opacity-70 rounded-full flex items-center justify-center text-white transition-all duration-200 opacity-0 group-hover:opacity-100 hidden" title="下一页 (→)">
+                    <i class="fas fa-arrow-right text-sm"></i>
+                </button>
+                <div class="highlight-glow -top-20 -left-20"></div>
+                <p id="header-subtitle" class="text-sm tracking-widest content-pane">2025-2026 ACADEMIC YEAR TECH DEPARTMENT WORK PLAN</p>
+                <h1 id="header-title" class="font-black-chinese text-5xl md:text-7xl lg:text-8xl my-4 content-pane">全面 <span class="highlight">智能</span></h1>
+                <p id="header-tagline" class="text-xl md:text-2xl text-gray-600 content-pane">打造沉浸式智能化体验</p>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="col-span-6 lg:col-span-4 row-span-1 bento-item justify-center items-center text-center highlight-gradient-bg">
+                <div class="content-pane">
+                    <h2 id="metric1-value" class="font-black-chinese text-7xl md:text-8xl highlight">6<span class="text-4xl text-black">大</span></h2>
+                    <p id="metric1-label" class="mt-2 text-lg font-bold">核心项目</p>
+                    <p id="metric1-sublabel" class="text-xs">CORE PROJECTS</p>
+                </div>
+            </div>
+            <div class="col-span-6 lg:col-span-4 row-span-1 bento-item justify-center items-center text-center highlight-gradient-bg">
+                <div class="content-pane">
+                    <h2 id="metric2-value" class="font-black-chinese text-7xl md:text-8xl highlight">20<span class="text-4xl text-black">+</span></h2>
+                    <p id="metric2-label" class="mt-2 text-lg font-bold">版本迭代</p>
+                    <p id="metric2-sublabel" class="text-xs">VERSION ITERATIONS</p>
+                </div>
+            </div>
+
+            <!-- Project Overview -->
+            <div class="col-span-12 lg:col-span-6 row-span-3 bento-item">
+                <div class="highlight-glow -bottom-20 -right-20"></div>
+                <div class="flex-grow flex flex-col">
+                    <h3 id="section-title" class="font-black-chinese text-4xl mb-4 text-left">核心项目规划</h3>
+                    <p id="section-subtitle" class="subtitle mb-6 text-left">围绕"智能办公管理"全流程，我们规划了六大核心项目，旨在通过技术手段系统性地提升工作效率与质量。</p>
+                    <div id="project-tabs" class="word-cloud-container my-auto">
+                        <div class="flex justify-center gap-3 mb-3">
+                            <button data-project="global" class="project-tab highlight-bg text-white px-4 py-2 rounded-full font-bold">全局总览</button>
+                            <button data-project="p1" class="project-tab bg-gray-200 px-4 py-2 rounded-full font-bold">Microsoft Teams平台</button>
+                            <button data-project="p2" class="project-tab bg-gray-200 px-4 py-2 rounded-full">智能课堂解决方案</button>
+                        </div>
+                        <div class="flex justify-center gap-3 mb-3">
+                            <button data-project="p3" class="project-tab bg-gray-200 px-4 py-2 rounded-full">精准办公</button>
+                            <button data-project="p4" class="project-tab bg-gray-200 px-4 py-2 rounded-full">Edge浏览器</button>
+                            <button data-project="p5" class="project-tab bg-gray-200 px-4 py-2 rounded-full">Slack工作台</button>
+                            <button data-project="p7" class="project-tab bg-gray-200 px-4 py-2 rounded-full">Tableau管理驾驶舱</button>
+                        </div>
+                        <div class="flex justify-center gap-3">
+                            <button data-project="p9" class="project-tab bg-gray-200 px-4 py-2 rounded-full">核心班日志稽查</button>
+                            <button data-project="p6" class="project-tab bg-gray-200 px-4 py-2 rounded-full">Salesforce系统支持</button>
+                        </div>
+                    </div>
+                    <div id="project-overview-container" class="mt-3" style="display: none;">
+                        <!-- Project overview will be injected here -->
+                    </div>
+                    <div id="project-detail-content" class="mt-3 p-6 rounded-lg bg-white/30 backdrop-blur-sm min-h-[150px] transition-all duration-300 ease-in-out relative" style="display: none;">
+                        <!-- Content will be injected by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart -->
+            <div class="col-span-12 lg:col-span-6 row-span-3 bento-item">
+                <div id="resource-planning-content" class="content-pane h-full flex flex-col">
+                    <div>
+                        <h3 id="resource-title" class="font-black-chinese text-4xl mb-4">资源投入与规划</h3>
+                        <p id="resource-subtitle" class="subtitle mb-6">由技术部B组进行开发，预发布：2025年10月开始。 正式发布：26年4月开始。</p>
+                    </div>
+                    <div id="resource-chart-container" class="relative flex-1 w-full"> 
+                        <canvas id="resourceChart"></canvas>
+                    </div>
+                    <div id="resource-development-content" class="flex-1 w-full" style="display: none;">
+                        <!-- 产品研发计划内容将在这里显示 -->
+                        <div class="bg-white/50 p-6 rounded-xl h-auto min-h-[200px]">
+                            <div class="space-y-4">
+                                <!-- 版本切换按钮 -->
+                                <div id="version-buttons" class="flex justify-center space-x-2 mb-4">
+                                    <button class="version-btn active bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200" data-version="v1">
+                                        营销外呼 V1
+                                    </button>
+                                    <button class="version-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200" data-version="v2">
+                                        优惠券 V1
+                                    </button>
+                                    <button class="version-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200" data-version="v3">
+                                        Salesforce系统 V1
+                                    </button>
+                                    <button class="version-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200" data-version="v4">
+                                        招生报名 V2
+                                    </button>
+                                </div>
+
+                                <!-- 版本内容容器 -->
+                                <div class="version-content-container relative h-48 overflow-hidden">
+                                    <!-- V1 版本内容 -->
+                                    <div id="version-v1" class="version-content active absolute inset-0 transition-all duration-300">
+                                        <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm h-full">
+                                            <div class="flex items-center gap-2 mb-3">
+                                                <h5 class="font-bold text-blue-700">营销外呼 V1</h5>
+                                                <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">开发周期：1.5个月</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mb-3">外呼系统需要二次开发以满足招生部门的网络电话需求。</p>
+                                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                                <div class="bg-blue-50 p-2 rounded text-center">
+                                                    <div class="font-semibold text-blue-700">需求调研</div>
+                                                    <div class="text-gray-600">2025-10-16 to 2025-10-31</div>
+                                                </div>
+                                                <div class="bg-green-50 p-2 rounded text-center">
+                                                    <div class="font-semibold text-green-700">项目研发</div>
+                                                    <div class="text-gray-600">2025-11-16 to 2025-11-30</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- V2 版本内容 -->
+                                    <div id="version-v2" class="version-content absolute inset-0 opacity-0 translate-x-full transition-all duration-300">
+                                        <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm h-full">
+                                            <div class="flex items-center gap-2 mb-3">
+                                                <h5 class="font-bold text-green-700">优惠券 V1</h5>
+                                                <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">开发周期：1.5个月</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mb-3">优惠券作为公共服务可以支撑招生预发布和招生正式报名场景的营销活动。</p>
+                                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                                <div class="bg-blue-50 p-2 rounded text-center">
+                                                    <div class="font-semibold text-blue-700">需求调研</div>
+                                                    <div class="text-gray-600">2025-11-16 to 2025-11-30</div>
+                                                </div>
+                                                <div class="bg-green-50 p-2 rounded text-center">
+                                                    <div class="font-semibold text-green-700">项目研发</div>
+                                                    <div class="text-gray-600">2025-12-01 to 2025-12-31</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- V3 版本内容 -->
+                                    <div id="version-v3" class="version-content absolute inset-0 opacity-0 translate-x-full transition-all duration-300">
+                                        <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm h-full">
+                                            <div class="flex items-center gap-2 mb-3">
+                                                <h5 class="font-bold text-purple-700">招生报名 V1</h5>
+                                                <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs">开发周期：1个月</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mb-3">提前进行开发，给招生期开发压力期进行泄压。</p>
+                                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                                <div class="bg-blue-50 p-2 rounded text-center">
+                                                    <div class="font-semibold text-blue-700">需求调研</div>
+                                                    <div class="text-gray-600">2025-09-01 to 2025-09-15</div>
+                                                </div>
+                                                <div class="bg-green-50 p-2 rounded text-center">
+                                                    <div class="font-semibold text-green-700">项目研发</div>
+                                                    <div class="text-gray-600">2025-09-16 to 2025-09-30</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- V4 版本内容 -->
+                                    <div id="version-v4" class="version-content absolute inset-0 opacity-0 translate-x-full transition-all duration-300">
+                                        <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm h-full">
+                                            <div class="flex items-center gap-2 mb-3">
+                                                <h5 class="font-bold text-orange-700">招生报名 V2</h5>
+                                                <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs">开发周期：1.5个月</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mb-3">提前进行开发，给招生期开发压力期进行泄压。</p>
+                                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                                <div class="bg-blue-50 p-2 rounded text-center">
+                                                    <div class="font-semibold text-blue-700">需求调研</div>
+                                                    <div class="text-gray-600">2025-10-01 to 2025-10-15</div>
+                                                </div>
+                                                <div class="bg-green-50 p-2 rounded text-center">
+                                                    <div class="font-semibold text-green-700">项目研发</div>
+                                                    <div class="text-gray-600">2025-10-16 to 2025-11-15</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- 总体进度概览 -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Structure -->
+            <div class="col-span-12 lg:col-span-4 row-span-2 bento-item">
+                <div class="highlight-glow -top-20 -right-20"></div>
+                <div id="team-structure-content" class="content-pane">
+                    <h3 class="font-black-chinese text-3xl mb-2">核心目标</h3>
+                    <p id="core-goal-subtitle" class="text-gray-500 mb-6">构建华为师生共同成长的优秀课中环节智能化体验。</p>
+                    <div class="mt-auto bg-white/50 p-6 rounded-xl">
+                        <h4 class="font-bold text-lg">能力提升 SOLUTION</h4>
+                        <p class="text-gray-600 mt-2">提供<span class="highlight font-bold text-xl">智能化办公体验</span>，提供基于数据的<span class="highlight font-bold text-xl">智能决策建议</span>。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Support Needed -->
+            <div class="col-span-12 lg:col-span-8 row-span-2 bento-item">
+                <div id="support-content" class="content-pane">
+                    <h3 class="font-black-chinese text-4xl mb-4">成功的关键支持</h3>
+                    <p class="subtitle mb-6">为保障规划顺利落地，我们恳请各位在以下层面给予关键支持。</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-auto">
+                        <div class="bg-white/50 p-4 rounded-xl">
+                            <p id="support-item1-title" class="font-bold">总部支持</p>
+                            <p id="support-item1-desc" class="text-sm text-gray-600 mt-1">业务部门2和业务部门1分别需要该项目中提供并承担数据提供和持续督导。</p>
+                        </div>
+                        <div class="bg-white/50 p-4 rounded-xl">
+                            <p id="support-item2-title" class="font-bold">积极沟通</p>
+                            <p id="support-item2-desc" class="text-sm text-gray-600 mt-1">我们将每个月对现有产品和新产品进行调查研究和满意度回访，希望能够积极配合。</p>
+                        </div>
+                        <div class="bg-white/50 p-4 rounded-xl">
+                            <p id="support-item3-title" class="font-bold highlight">运营保障</p>
+                            <p id="support-item3-desc" class="text-sm text-gray-600 mt-1">缅北园区需要提供至少提供一个级部来进行第一版本的试点落地。</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="absolute bottom-0 -right-10 text-[12rem] opacity-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const pageData = {
+            global: {
+                headerTitle: 'ALL IN 办公',
+                headerTagline: '打造浸入式智能化体验',
+                metric1Value: '6<span class="text-4xl text-black">大</span>',
+                metric1Label: '核心项目',
+                metric2Value: '20<span class="text-4xl text-black">+</span>',
+                metric2Label: '版本迭代',
+                supportTitle: '成功的关键支持',
+                supportSubtitle: '为保障规划顺利落地，我们恳请领导在思想与资源层面给予关键支持。',
+                supportPoints: [
+                    {title: '思想层面', detail: '支持信息部作为业务“参与方”深度介入，而非被动“承接方”。'},
+                    {title: '运营保障', detail: '为新产品布置明确的运营指标，驱动产品在真实使用中不断迭代进化。'},
+                    {title: '资源保障', detail: '批准增加一名前端工程师编制，是保障所有项目开发进度的关键前提。', highlight: true}
+                ]
+            },
+            p1: {
+                headerTitle: 'Microsoft Teams平台',
+                headerTagline: '从"经验操作"到"精准操作"的转变',
+                metric1Value: '3<span class="text-4xl text-black">个</span>',
+                metric1Label: '核心版本',
+                metric2Value: '50<span class="text-4xl text-black">%</span>',
+                metric2Label: '操作效率提升',
+                title: '华为办公平台',
+                why: '当前领导操作意愿不足、监察手段薄弱、办公支持脱节，严重影响办公质量基石。',
+                how: '打造以"操作动作"为核心的平台，融合"华为操作四步法"，结合资源数据，实现从"经验操作"到"精准操作"的转变。',
+                problems: [
+                    '通过引入监管手段解决操作动作执行不到位问题',
+                    '提供AI操作支持手段以及业务部门2经验传授的渠道',
+                    '提供模范操作和共享操作的分享展示平台'
+                ],
+                plan: [
+                    { v: 'V1', t: 'AI引导式操作平台', d: '实现操作流程线上化，留痕管理。' },
+                    { v: 'V2', t: '交互式共享文档体验', d: '提供操作资料技巧内容管理。' },
+                    { v: 'V3', t: '资源与考频智能建议', d: '班级资源结合考频参与操作建议，根据学案教案提供多种讲法建议。' }
+                ]
+            },
+            p2: {
+                headerTitle: '实效办公解决方案',
+                headerTagline: '围绕集团实效办公策略，赋能华为学子的每一堂课',
+                metric1Value: '3<span class="text-4xl text-black">个</span>',
+                metric1Label: '核心版本',
+                metric2Value: '100<span class="text-4xl text-black">%</span>',
+                metric2Label: '课堂场景覆盖',
+                title: '实效办公',
+                why: '课堂流程执行不到位、办公质量评估标准模糊、小组积分制操作繁琐，限制了实效办公的效果。',
+                how: '定制功能全面的领导授课系统，内置互动工具与自动化小组积分，并作为标准办公资源的官方入口。',
+                problems: [
+                    '通过系统化课堂流程管理解决执行不到位的问题',
+                    '提供标准化办公质量评估体系和监督指标',
+                    '建立自动化小组积分系统提升课堂互动效率'
+                ],
+                plan: [
+                    { v: 'V1', t: '解决有无问题', d: '搭建整体框架，实现课中阶段计时和小组积分制构建。' },
+                    { v: 'V2', t: '解决好用问题', d: '增加课中互动工具，完善领导自我调整操作，完善监督指标。' },
+                    { v: 'V3', t: '解决评价问题', d: '增加课堂评价要素，关联领导、员工画像。' }
+                ]
+            },
+            // ... (Add full data for p3, p4, p5, p6 similarly)
+             p3: {
+                headerTitle: '精准办公解决方案',
+                headerTagline: '精准识别员工薄弱点，智能推荐核心重点习题',
+                metric1Value: '3<span class="text-4xl text-black">个</span>',
+                metric1Label: '核心模块',
+                metric2Value: '95<span class="text-4xl text-black">%</span>',
+                metric2Label: '辅导场景覆盖',
+                title: '精准办公解决方案',
+                why: '领导难以快速识别员工知识缺陷、生成针对性练习，且一对一辅导过程缺乏线上留痕与效果评估。',
+                how: '以西红柿炒鸡蛋作为切入口，辅助日常作业收集系统和智能题库系统，解决领导如何识别员工问题和快速出好题的需求。',
+                problems: [
+                    '通过智能诊断系统解决领导难以快速识别员工知识缺陷的问题',
+                    '提供动态题库和一键生成功能解决针对性练习生成困难',
+                    '建立完整的线上辅导留痕和效果评估体系'
+                ],
+                plan: [
+                    { v: 'V1', t: '一对一与作业收集', d: '推出西红柿炒鸡蛋应用和日常作业收集系统和周测系统，满足一对一辅导场景需求。' },
+                    { v: 'V2', t: '拓展学科与优化', d: '拓展学科，优化迭代日常作业反馈，探索更快更低成本的作业批改、收集方案。' }
+                ]
+            },
+            p4: {
+                headerTitle: 'Edge浏览器系统',
+                headerTagline: '洞察数据，驱动办公管理决策',
+                metric1Value: '3<span class="text-4xl text-black">个</span>',
+                metric1Label: '核心功能',
+                metric2Value: '100<span class="text-4xl text-black">%</span>',
+                metric2Label: '数据连通',
+                title: 'Edge浏览器',
+                why: '外部工具与办公需求脱节，且缺乏内部系统追踪员工、班级乃至集团的成绩趋势，无法有效支撑决策。',
+                how: '以管理视角为主，构建重点为学校办公管理运营的华为Edge浏览器系统，横纵向分析校区、班级的成绩数据，精确到个人维度进行成绩跟踪，达成军令状实现。',
+                problems: [
+                    '通过内部Edge浏览器系统解决外部工具与办公需求脱节的问题',
+                    '建立完整的员工、班级、集团成绩趋势追踪体系',
+                    '提供数据驱动的办公管理决策支持和军令状目标跟踪'
+                ],
+                plan: [
+                    { v: 'V1', t: '试点与基础框架', d: '以github社区为试点，完成核心功能。' },
+                    { v: 'V2', t: '全面优化与扩展', d: '补全功能，成为集团办公管理的核心系统。' }
+                ]
+            },
+            p5: {
+                headerTitle: '员工德育平台',
+                headerTagline: '为管理员提供德育工作"说明书"与"工作流"',
+                metric1Value: '3<span class="text-4xl text-black">个</span>',
+                metric1Label: '核心版本',
+                metric2Value: '全闭环',
+                metric2Label: '德育工作支持',
+                title: '员工德育',
+                why: '德育工作缺乏线上化、体系化手段，新管理员缺少指导，且对负面心理问题缺少系统性解决方案。',
+                how: '打造一站式德育工作平台，整合AI模拟练习、心理测评与辅导流程，为管理员提供"说明书"与"工作流"。',
+                problems: [
+                    '通过系统化德育工作流程解决新管理员缺乏指导的问题',
+                    '提供AI模拟练习和心理测评工具提升德育工作效率',
+                    '建立完整的心理问题处置闭环，形成多角色协作平台'
+                ],
+                plan: [
+                    { v: 'V1', t: '整合德育一对一', d: '优化现有产品，让场景操作归一。' },
+                    { v: 'V2', t: '融合AI练习', d: '加入工作指南与案例。' },
+                    { v: 'V3', t: '心理处置闭环', d: '接入多角色，形成平台闭环。' }
+                ]
+            },
+            p6: {
+                headerTitle: '运营及招生',
+                headerTagline: '聚焦关键运营业务，打造核心能力提升',
+                metric1Value: '4<span class="text-4xl text-black">个</span>',
+                metric1Label: '支撑系统',
+                metric2Value: '3<span class="text-4xl text-black">个月</span>',
+                metric2Label: '提前量',
+                title: '运营及招生',
+                why: '校级管理层缺乏统一数据决策平台，同时招生工作对开发团队造成巨大的短期压力。',
+                how: '"双线并行"，启动"校管驾驶舱"项目，并前置开发招生所需的报名、外呼等公共服务，为高峰期泄压。',
+                problems: [
+                    '满足招生、财务部门的核心需求',
+                    '满足预报名和报名场景的核心需求'
+                ],
+                plan: [
+                    { v: '舱V1', t: '驾驶舱基础框架', d: '以师生比、军令状为抓手。' },
+                    { v: '报V1/2', t: '招生报名系统迭代', d: '25.09 - 25.11' },
+                    { v: '外V1', t: '外呼系统', d: '25.11' },
+
+                ]
+            },
+            p7: {
+                headerTitle: 'Tableau管理驾驶舱',
+                headerTagline: '数据驱动决策，智能化校区管理',
+                metric1Value: '1<span class="text-4xl text-black">个</span>',
+                metric1Label: '核心版本',
+                metric2Value: '全校区',
+                metric2Label: '管理覆盖',
+                title: '华为校管驾驶舱',
+                why: '校级管理层缺乏统一的数据决策平台，无法有效监控和管理校区运营状况。',
+                how: '构建以师生比、军令状为核心的校管驾驶舱，提供实时数据监控和智能决策支持。',
+                problems: [
+                    '通过统一数据平台解决校级管理层决策支持不足的问题',
+                    '提供实时的师生比监控和军令状跟踪功能',
+                    '建立数据驱动的校区管理决策体系'
+                ],
+                plan: [
+                    { v: 'V1', t: '驾驶舱基础框架', d: '以师生比、军令状为抓手，建立基础数据监控体系。' }
+                ]
+            },
+
+            p9: {
+                headerTitle: '核心班日志稽查',
+                headerTagline: '随手记录工作事项，AI提醒工作重点',
+                metric1Value: '1<span class="text-4xl text-black">个</span>',
+                metric1Label: '核心版本',
+                metric2Value: '全覆盖',
+                metric2Label: '日志稽查',
+                title: '核心班日志稽查',
+                why: '核心班日志管理缺乏系统化支持，稽查工作效率低下，影响核心班运营质量。',
+                how: '开发智能化的日志稽查系统，提供自动化的日志收集、分析和稽查功能。',
+                problems: [
+                    '通过线上化记录解决日志不规范的问题',
+                    '通过AI帮助使用者确定本周目标是否达成，并给出工作建议',
+                    '帮助管理者快速清晰的梳理核心班业务开展情况'
+                ],
+                plan: [
+                    { v: 'V1', t: '日志稽查系统', d: '实现日志收集、分析、稽查和报告功能。' }
+                ]
+            }
+        };
+
+        // 项目版本数据
+        const projectVersionData = {
+            p1: {
+                versions: [
+                    {
+                        id: 'v1',
+                        title: '华为办公平台 V1',
+                        subtitle: '基础平台搭建',
+                        cycle: '开发周期：2.5个月',
+                        description: '解决有无问题：搭建整体框架，实现课中的构计和小组积分制构建。',
+                        phases: [
+                            { name: '需求调研', period: '2025.09.01-09.30', color: 'blue' },
+                            { name: '项目研发', period: '2025.10.01-10.31', color: 'green' },
+                            { name: '试点落地', period: '2025.11.01-11.15', color: 'purple' }
+                        ]
+                    },
+                    {
+                        id: 'v2',
+                        title: '华为办公平台 V2',
+                        subtitle: '功能增强',
+                        cycle: '开发周期：2个月',
+                        description: '增加课堂评价要素，关联校管驾驶舱和华为Edge浏览器系统。',
+                        phases: [
+                            { name: '需求调研', period: '2025.12.16-01.15', color: 'blue' },
+                            { name: '项目研发', period: '2026.01.16-02.15', color: 'green' }
+                        ]
+                    },
+                    {
+                        id: 'v3',
+                        title: '华为办公平台 V3',
+                        subtitle: '智能化升级',
+                        cycle: '开发周期：1.5个月',
+                        description: '增加AI智能推荐和个性化办公路径规划功能。',
+                        phases: [
+                            { name: '需求调研', period: '2026.03.16-03.31', color: 'blue' },
+                            { name: '项目研发', period: '2026.04.01-04.30', color: 'green' }
+                        ]
+                    }
+                ]
+            },
+            p2: {
+                versions: [
+                    {
+                        id: 'v1',
+                        title: '实效办公解决方案 V1',
+                        subtitle: '基础框架搭建',
+                        cycle: '开发周期：2.5个月',
+                        description: '建立实效办公的基础评估和改进体系。',
+                        phases: [
+                            { name: '需求调研', period: '2025.08.01-08.15', color: 'blue' },
+                            { name: '项目研发', period: '2025.08.16-09.30', color: 'green' },
+                            { name: '试点落地', period: '2025.10.01-10.15', color: 'purple' }
+                        ]
+                    },
+                    {
+                        id: 'v2',
+                        title: '实效办公解决方案 V2',
+                        subtitle: '智能化升级',
+                        cycle: '开发周期：2个月',
+                        description: '增加AI辅助分析和智能推荐功能。',
+                        phases: [
+                            { name: '需求调研', period: '2025.12.16-01.15', color: 'blue' },
+                            { name: '项目研发', period: '2026.01.16-02.15', color: 'green' }
+                        ]
+                    },
+                    {
+                        id: 'v3',
+                        title: '实效办公解决方案 V3',
+                        subtitle: '全面优化',
+                        cycle: '开发周期：1.5个月',
+                        description: '全面优化系统性能和用户体验。',
+                        phases: [
+                            { name: '需求调研', period: '2026.03.16-03.31', color: 'blue' },
+                            { name: '项目研发', period: '2026.04.01-04.30', color: 'green' }
+                        ]
+                    }
+                ]
+            },
+            p3: {
+                versions: [
+                    {
+                        id: 'v1',
+                        title: '精准办公 V1',
+                        subtitle: '基础平台搭建',
+                        cycle: '开发周期：2个月',
+                        description: '建立精准办公的基础数据收集和分析体系。',
+                        phases: [
+                            { name: '需求调研', period: '2025.08.01-08.15', color: 'blue' },
+                            { name: '项目研发', period: '2025.08.16-09.15', color: 'green' },
+                            { name: '试点落地', period: '2025.09.16-09.30', color: 'purple' }
+                        ]
+                    },
+                    {
+                        id: 'v2',
+                        title: '精准办公 V2',
+                        subtitle: '智能化升级',
+                        cycle: '开发周期：2个月',
+                        description: '增加AI智能推荐和个性化学习路径规划功能。',
+                        phases: [
+                            { name: '需求调研', period: '2025.10.01-10.31', color: 'blue' },
+                            { name: '项目研发', period: '2025.11.01-11.30', color: 'green' }
+                        ]
+                    }
+                ]
+            },
+            p4: {
+                versions: [
+                    {
+                        id: 'v1',
+                        title: 'Edge浏览器 V1',
+                        subtitle: '基础平台搭建',
+                        cycle: '开发周期：2.5个月',
+                        description: '以github社区Edge浏览器为试点，构建基础框架，完成各视角需求核心功能。',
+                        phases: [
+                            { name: '需求调研', period: '2025-09-01 to 2025-09-15', color: 'blue' },
+                            { name: '项目研发', period: '2025-10-16 to 2025-11-15', color: 'green' },
+                            { name: '试点落地', period: '2025-11-16 to 2025-11-30', color: 'purple' }
+                        ]
+                    },
+                    {
+                        id: 'v2',
+                        title: 'Edge浏览器 V2',
+                        subtitle: '功能优化扩展',
+                        cycle: '开发周期：2个月',
+                        description: '全面优化Edge浏览器系统，将功能补全以扩展到全部校区进行使用。',
+                        phases: [
+                            { name: '需求调研', period: '2025-11-16 to 2025-12-15', color: 'blue' },
+                            { name: '项目研发', period: '2026-03-01 to 2026-03-31', color: 'green' }
+                        ]
+                    }
+                ]
+            },
+            p5: {
+                versions: [
+                    {
+                        id: 'v1',
+                        title: '德育平台 V1',
+                        subtitle: '基础平台搭建',
+                        cycle: '开发周期：1个月',
+                        description: '优化现有产品，让场景操作归一。',
+                        phases: [
+                            { name: '需求调研', period: '2025-09-16 to 2025-09-30', color: 'blue' },
+                            { name: '项目研发', period: '2025-10-01 to 2025-10-15', color: 'green' }
+                        ]
+                    },
+                    {
+                        id: 'v2',
+                        title: '德育平台 V2',
+                        subtitle: '功能增强',
+                        cycle: '开发周期：2.5个月',
+                        description: '加入工作指南与案例。',
+                        phases: [
+                            { name: '需求调研', period: '2025-10-16 to 2025-11-15', color: 'blue' },
+                            { name: '项目研发', period: '2025-11-16 to 2025-12-15', color: 'green' },
+                            { name: '试点落地', period: '2025-12-16 to 2025-12-31', color: 'purple' }
+                        ]
+                    },
+                    {
+                        id: 'v3',
+                        title: '德育平台 V3',
+                        subtitle: '心理处置闭环',
+                        cycle: '开发周期：1.5个月',
+                        description: '接入多角色，形成平台闭环。',
+                        phases: [
+                            { name: '需求调研', period: '2026-04-16 to 2026-04-30', color: 'blue' },
+                            { name: '项目研发', period: '2026-05-01 to 2026-05-31', color: 'green' }
+                        ]
+                    }
+                ]
+            },
+            p7: {
+                versions: [
+                    {
+                        id: 'v1',
+                        title: '校管驾驶舱 V1',
+                        subtitle: '基础平台搭建',
+                        cycle: '开发周期：2个月',
+                        description: '搭建基础框架，将基础信息收集进平台，先以师生比和军令状为抓手进行构建。',
+                        phases: [
+                            { name: '需求调研', period: '2025-12-01 to 2025-12-31', color: 'blue' },
+                            { name: '项目研发', period: '2026-01-01 to 2026-01-31', color: 'green' }
+                        ]
+                    }
+                ]
+            },
+            p6: {
+                versions: [
+                    {
+                        id: 'v1',
+                        title: '营销外呼 V1',
+                        subtitle: '营销外呼系统',
+                        cycle: '开发周期：1.5个月',
+                        description: '外呼系统需要二次开发以满足招生部门的网络电话需求。',
+                        phases: [
+                            { name: '需求调研', period: '2025-10-16 to 2025-10-31', color: 'blue' },
+                            { name: '项目研发', period: '2025-11-16 to 2025-11-30', color: 'green' }
+                        ]
+                    },
+                    {
+                        id: 'v2',
+                        title: '优惠券 V1',
+                        subtitle: '优惠券营销系统',
+                        cycle: '开发周期：1.5个月',
+                        description: '优惠券作为公共服务可以支撑招生预报名和招生正式报名场景的营销活动。',
+                        phases: [
+                            { name: '需求调研', period: '2025-11-16 to 2025-11-30', color: 'blue' },
+                            { name: '项目研发', period: '2025-12-01 to 2025-12-31', color: 'green' }
+                        ]
+                    },
+                    {
+                        id: 'v3',
+                        title: '招生报名 V1',
+                        subtitle: '招生报名系统',
+                        cycle: '开发周期：1个月',
+                        description: '提前进行开发，给招生期开发压力期进行泄压。',
+                        phases: [
+                            { name: '需求调研', period: '2025-09-01 to 2025-09-15', color: 'blue' },
+                            { name: '项目研发', period: '2025-09-16 to 2025-09-30', color: 'green' }
+                        ]
+                    },
+                    {
+                        id: 'v4',
+                        title: '招生报名 V2',
+                        subtitle: '招生报名系统升级',
+                        cycle: '开发周期：1.5个月',
+                        description: '提前进行开发，给招生期开发压力期进行泄压。',
+                        phases: [
+                            { name: '需求调研', period: '2025-10-01 to 2025-10-15', color: 'blue' },
+                            { name: '项目研发', period: '2025-10-16 to 2025-11-15', color: 'green' }
+                        ]
+                    }
+                ]
+            },
+            p9: {
+                versions: [
+                    {
+                        id: 'v1',
+                        title: '核心班日志V1',
+                        subtitle: '基础平台搭建',
+                        cycle: '开发周期：3个月',
+                        description: '构建核心班日志自动收集和管理系统。',
+                        phases: [
+                            { name: '需求调研', period: '2025.07.01-07.10', color: 'blue' },
+                            { name: '项目研发', period: '2025.07.16-08.15', color: 'green' },
+                            { name: '试点落地', period: '2025.09.01-09.30', color: 'purple' }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        const projectTabs = document.getElementById('project-tabs');
+        const projectDetailContent = document.getElementById('project-detail-content');
+        const allContentPanes = document.querySelectorAll('.content-pane');
+
+        function updateUI(projectId) {
+            const data = pageData[projectId];
+
+            // Add loading effect
+            allContentPanes.forEach(pane => pane.classList.add('loading'));
+
+            setTimeout(() => {
+                // Update Header
+                document.getElementById('header-title').innerHTML = data.headerTitle;
+                document.getElementById('header-tagline').innerHTML = data.headerTagline;
+
+                // Update Metrics
+                document.getElementById('metric1-value').innerHTML = data.metric1Value;
+                document.getElementById('metric1-label').innerHTML = data.metric1Label;
+                document.getElementById('metric2-value').innerHTML = data.metric2Value;
+                document.getElementById('metric2-label').innerHTML = data.metric2Label;
+
+                // Update section title and subtitle
+                const sectionTitle = document.getElementById('section-title');
+                const sectionSubtitle = document.getElementById('section-subtitle');
+                const projectTabs = document.getElementById('project-tabs');
+                
+                if (projectId !== 'global') {
+                    if (projectId === 'p1') {
+                        sectionTitle.textContent = '核心项目规划';
+                        sectionSubtitle.textContent = '以操作动作为主体，以华为操作四步法为理论基础，结合班级资源数据和学案为领导个人操作和集体操作提供操作平台。';
+                        sectionSubtitle.style.display = 'block';
+                        
+                        // Update core goal subtitle for 华为办公平台
+                        const coreGoalSubtitle = document.getElementById('core-goal-subtitle');
+                        if (coreGoalSubtitle) {
+                            coreGoalSubtitle.textContent = '成为华为领导课前操作场景的全流程操作平台和引导平台。';
+                        }
+                        
+                        // Update support items for 华为办公平台
+                        const supportItem1Title = document.getElementById('support-item1-title');
+                        const supportItem1Desc = document.getElementById('support-item1-desc');
+                        const supportItem3Desc = document.getElementById('support-item3-desc');
+                        
+                        if (supportItem1Title) supportItem1Title.textContent = '理论支撑';
+                        if (supportItem1Desc) supportItem1Desc.textContent = '由业务部门1和业务部门2提供有效且可落地的、经过实践检验的理论支撑';
+                        if (supportItem3Desc) supportItem3Desc.textContent = '业务部门1、督导组、校区都应该布置明确的行政命令，让操作平台能够快速成为操作习惯。';
+                    } else {
+                        sectionTitle.textContent = '核心项目规划';
+                        if (projectId === 'p2') {
+                            sectionSubtitle.textContent = '围绕华为实效办公方案全面定制一套领导授课系统，领导通过WEB加载PPT进行授课，以及进行课中互动和小组积分制构建，业务部门2上传标准资源包，业务部门1做授课监管。';
+                        } else if (projectId === 'p3') {
+                            sectionSubtitle.textContent = '以西红柿炒鸡蛋作为切入口，辅助日常作业收集系统和智能题库系统，解决领导如何识别员工问题和快速出好题的需求。';
+                        } else if (projectId === 'p4') {
+                            sectionSubtitle.textContent = '以管理视角为主，构建重点为学校办公管理运营的华为Edge浏览器系统，横纵向分析校区、班级的成绩数据，精确到个人维度进行成绩跟踪，达成军令状实现';
+                        } else if (projectId === 'p5') {
+                            sectionSubtitle.textContent = '以德育一对一为切入点，整合AI练习，整合心理测评和辅导，打造管理员德育工作"说明书"和"工作流"，让领导该在该平台知道该怎么做，该怎么练习，该怎么处置';
+                        } else if (projectId === 'p6') {
+                            sectionSubtitle.textContent = '聚焦关键运营业务，打造核心能力提升';
+                        } else if (projectId === 'p7') {
+                            sectionSubtitle.textContent = '以校管视角，以领导、员工、办公员等人力资源，成绩、关键动作排名、为考核指标，师生比、学科健康为运营指标打造华为高中集团校的校管数据平台，为办公管理、人力资源管理决策提供有力的数据支撑';
+                        } else if (projectId === 'p9') {
+                            sectionSubtitle.textContent = '随手记录工作事项，AI提醒工作重点';
+                        } else {
+                            sectionSubtitle.textContent = '产品方案';
+                        }
+                        sectionSubtitle.style.display = 'block';
+                        
+                        // Reset to original content for other project pages
+                        const coreGoalSubtitle = document.getElementById('core-goal-subtitle');
+                        if (coreGoalSubtitle) {
+                            if (projectId === 'p2') {
+                                coreGoalSubtitle.innerHTML = '构建华为师生共同成长的优秀课中环节<span class="highlight">智能化体验</span>。';
+                            } else if (projectId === 'p3') {
+                coreGoalSubtitle.innerHTML = '成为华为特色办公方案的坚定基石。';
+            } else if (projectId === 'p5') {
+                coreGoalSubtitle.innerHTML = '打造华为德育工作归一的多角色操作平台。';
+            } else if (projectId === 'p7') {
+                coreGoalSubtitle.innerHTML = '为办公管理、人力资源管理决策提供有力的数据支撑。';
+            } else {
+                coreGoalSubtitle.innerHTML = '为招生、财务等财神爷<span class="highlight">鞠躬尽瘁死而后已</span>。';
+            }
+                        }
+                        
+                        const supportItem1Title = document.getElementById('support-item1-title');
+                        const supportItem1Desc = document.getElementById('support-item1-desc');
+                        const supportItem3Desc = document.getElementById('support-item3-desc');
+                        
+                        if (projectId === 'p2') {
+                            if (supportItem1Title) supportItem1Title.textContent = '总部支持';
+                            if (supportItem1Desc) supportItem1Desc.textContent = '业务部门2和业务部门1分别需要该项目中提供并承担数据提供和持续督导。';
+                            if (supportItem3Desc) supportItem3Desc.textContent = '缅北园区需要提供至少提供一个级部来进行第一版本的试点落地。';
+                        } else if (projectId === 'p3') {
+                            if (supportItem1Title) supportItem1Title.textContent = '总部支持';
+                            if (supportItem1Desc) supportItem1Desc.textContent = '业务部门2和业务部门1分别需要该项目中提供并承担数据提供和持续督导。';
+                            if (supportItem3Desc) supportItem3Desc.textContent = '缅北园区需要提供至少提供一个级部来进行第一版本的试点落地。';
+                        } else if (projectId === 'p4') {
+            if (supportItem1Title) supportItem1Title.textContent = '数据协作';
+            if (supportItem1Desc) supportItem1Desc.textContent = '需要github社区和业务部门1承担数据分析维度的搭建工作，确保数据的准确性和完整性。';
+            if (supportItem3Desc) supportItem3Desc.textContent = '提供充足的资源支持，包括人力、物力和财力，确保项目顺利推进和持续运营。';
+        } else if (projectId === 'p5') {
+            if (supportItem1Title) supportItem1Title.textContent = '行政支持';
+            if (supportItem1Desc) supportItem1Desc.textContent = '将AI德育练习和新版AI德育一对一工作落实监督。';
+            if (supportItem3Desc) supportItem3Desc.textContent = '提供充足的资源支持，包括人力、物力和财力，确保项目顺利推进和持续运营。';
+        } else if (projectId === 'p7') {
+            if (supportItem1Title) supportItem1Title.textContent = '业务支持';
+            if (supportItem1Desc) supportItem1Desc.textContent = '校管驾驶舱需要各个校管部门充足的调研支持和数据支持。';
+            if (supportItem3Desc) supportItem3Desc.textContent = '提供充足的资源支持，包括人力、物力和财力，确保项目顺利推进和持续运营。';
+        } else {
+                            if (supportItem1Title) supportItem1Title.textContent = '提前预告';
+                            if (supportItem1Desc) supportItem1Desc.textContent = '招生业务往往一天几变，线上构建严重滞后于业务变更，需要尽量提前预告。';
+                            if (supportItem3Desc) supportItem3Desc.textContent = '提供充足的资源支持，包括人力、物力和财力，确保项目顺利推进和持续运营。';
+                        }
+                    }
+                    projectTabs.style.display = 'none';
+                    renderProjectContent(projectId);
+                    projectDetailContent.style.display = 'block';
+                    // Show navigation buttons in header
+                    document.getElementById('prev-btn-header').classList.remove('hidden');
+                    document.getElementById('next-btn-header').classList.remove('hidden');
+                } else {
+                    sectionTitle.textContent = '核心项目规划';
+                    sectionSubtitle.textContent = '围绕"智能办公管理"全流程，我们规划了六大核心项目，旨在通过技术手段系统性地提升办公人效与质量。';
+                    sectionSubtitle.style.display = 'block';
+                    projectTabs.style.display = 'block';
+                    projectDetailContent.style.display = 'none';
+                    // Hide project overview container in global view
+                    document.getElementById('project-overview-container').style.display = 'none';
+                    // Hide navigation buttons in header
+                    document.getElementById('prev-btn-header').classList.add('hidden');
+                    document.getElementById('next-btn-header').classList.add('hidden');
+                    
+                    // Reset to original content for global view
+                    const coreGoalSubtitle = document.getElementById('core-goal-subtitle');
+                    if (coreGoalSubtitle) {
+                        coreGoalSubtitle.innerHTML = '确保经过一年的研发，在办公和运营的各个关键场景提供浸入式<span class="highlight">智能化体验</span>。';
+                    }
+                    
+                    const supportItem1Title = document.getElementById('support-item1-title');
+                    const supportItem1Desc = document.getElementById('support-item1-desc');
+                    const supportItem3Desc = document.getElementById('support-item3-desc');
+                    
+                    if (supportItem1Title) supportItem1Title.textContent = '思想转变';
+                    if (supportItem1Desc) supportItem1Desc.textContent = '支持技术部作为业务"参与方"深度介入，而非被动"承接方"。';
+                    if (supportItem3Desc) supportItem3Desc.textContent = '提供充足的资源支持，包括人力、物力和财力，确保项目顺利推进和持续运营。';
+                }
+                
+                // Update resource planning section
+                updateResourcePlanningSection();
+                
+                // Remove loading effect
+                allContentPanes.forEach(pane => pane.classList.remove('loading'));
+            }, 300); // Corresponds to the transition duration
+        }
+
+        let isShowingVersionPlan = false;
+        
+        function updateResourcePlanningSection() {
+             const resourceTitle = document.getElementById('resource-title');
+             const resourceSubtitle = document.getElementById('resource-subtitle');
+             const chartContainer = document.getElementById('resource-chart-container');
+             const developmentContent = document.getElementById('resource-development-content');
+             
+             // Get current active project
+             const activeTab = document.querySelector('.project-tab.highlight-bg');
+             const currentProject = activeTab ? activeTab.dataset.project : 'global';
+             
+             // Check if current project is any specific project (not global)
+             if (currentProject !== 'global') {
+                 // Switch to product development plan for specific projects
+                 resourceTitle.textContent = '资源投入与规划';
+                 
+                 // Set project-specific subtitle
+                 let subtitle = '';
+                 switch(currentProject) {
+                     case 'p1':
+                         subtitle = '由西红柿炒鸡蛋开发组进行开发，项目启动：2025年9月，预计完成：2026年4月，预计历时8个月';
+                         break;
+                     case 'p2':
+                         subtitle = '由信息部第一开发组进行开发，项目启动：2025年8月，预计完成：2026年4月，预计历时8个月';
+                         break;
+                     case 'p3':
+                         subtitle = '由西红柿炒鸡蛋开发组进行开发，项目启动：2025年8月，预计完成：2025年12月，预计历时4个月';
+                         break;
+                     case 'p4':
+                         subtitle = '由信息部第一开发组进行开发，项目启动：2025年9月，预计完成：2026年4月，预计历时8个月';
+                         break;
+                     case 'p5':
+                         subtitle = '由信息部第一开发组进行开发，项目启动：2025年9月，预计完成：2026年6月，预计历时9个月';
+                         break;
+                     case 'p6':
+                         subtitle = '由信息部第二开发组进行开发，预报名：2025年10月开始。 招生报名：26年4月开始。';
+                         break;
+                     case 'p7':
+                        subtitle = '由信息部第二开发组进行开发，项目启动：2025年12月，预计完成：2026年2月，预计历时2个月';
+                        break;
+
+                     case 'p9':
+                    subtitle = '由信息部AI机动组进行开发，项目启动：2025年7月，预计完成：2025年10月，预计历时3个月';
+                         break;
+                     default:
+                         subtitle = '由信息部相关开发组进行开发，具体时间安排待定';
+                 }
+                 
+                 resourceSubtitle.textContent = subtitle;
+                 chartContainer.style.display = 'none';
+                 developmentContent.style.display = 'block';
+                 
+                 // 更新版本内容
+                 updateVersionContent(currentProject);
+             } else {
+                 // Switch back to original resource planning for global view
+                 resourceTitle.textContent = '资源投入与规划';
+                 resourceSubtitle.textContent = '办公侧和运营侧支持比例调整到3：1，确保能够支持学校运营的同时，聚焦四大关键动作，保证核心目标达成。';
+                 chartContainer.style.display = 'block';
+                 developmentContent.style.display = 'none';
+             }
+         }
+
+        // 更新版本内容的函数
+        function updateVersionContent(projectId) {
+            const versionData = projectVersionData[projectId];
+            if (!versionData) return;
+
+            const versions = versionData.versions;
+            
+            // 更新版本按钮
+            const versionButtons = document.querySelectorAll('.version-btn');
+            versionButtons.forEach((btn, index) => {
+                if (index < versions.length) {
+                    btn.textContent = versions[index].title;
+                    btn.style.display = 'inline-block';
+                } else {
+                    btn.style.display = 'none';
+                }
+            });
+
+            // 更新版本内容
+            versions.forEach((version, index) => {
+                const versionElement = document.getElementById(`version-${version.id}`);
+                if (versionElement) {
+                    // 更新版本标题和描述
+                    const titleElement = versionElement.querySelector('h5');
+                    const cycleElement = versionElement.querySelector('.bg-blue-100, .bg-green-100');
+                    const descElement = versionElement.querySelector('p');
+                    
+                    if (titleElement) titleElement.textContent = `${version.subtitle}`;
+                    if (cycleElement) cycleElement.textContent = version.cycle;
+                    if (descElement) descElement.textContent = version.description;
+
+                    // 更新阶段信息
+                    const phaseElements = versionElement.querySelectorAll('.grid > div');
+                    version.phases.forEach((phase, phaseIndex) => {
+                        if (phaseElements[phaseIndex]) {
+                            const phaseNameElement = phaseElements[phaseIndex].querySelector('.font-semibold');
+                            const phasePeriodElement = phaseElements[phaseIndex].querySelector('.text-gray-600');
+                            
+                            if (phaseNameElement) phaseNameElement.textContent = phase.name;
+                            if (phasePeriodElement) phasePeriodElement.textContent = phase.period;
+                            
+                            // 更新颜色样式
+                            const colorMap = {
+                                'blue': 'bg-blue-50',
+                                'green': 'bg-green-50', 
+                                'purple': 'bg-purple-50'
+                            };
+                            const textColorMap = {
+                                'blue': 'text-blue-700',
+                                'green': 'text-green-700',
+                                'purple': 'text-purple-700'
+                            };
+                            
+                            phaseElements[phaseIndex].className = `${colorMap[phase.color]} p-2 rounded text-center`;
+                            if (phaseNameElement) phaseNameElement.className = `font-semibold ${textColorMap[phase.color]}`;
+                        }
+                    });
+                }
+            });
+
+            // 默认显示第一个版本
+            if (versions.length > 0) {
+                showVersion('v1');
+            }
+        }
+        
+        function renderProjectContent(projectId) {
+            const data = pageData[projectId];
+            const projectOverviewContainer = document.getElementById('project-overview-container');
+            
+            // Define version plan content based on project
+            let versionPlanContent = [];
+            switch(projectId) {
+                case 'p1':
+                    versionPlanContent = [
+                        '提供AI加持的引导式操作操作平台，目标是线上留痕和管理。',
+                        '提供交互式共享文档体验和操作资料技巧内容管理。',
+                        '班级资源结合考频参与操作建议，根据学案教案提供多种讲法建议。'
+                    ];
+                    break;
+                case 'p2':
+                    versionPlanContent = [
+                        '解决有无问题：搭建整体框架，实现课中阶段计时和小组积分制构建。',
+                        '增加课中互动工具，完善领导自我调整操作，完善监督指标。',
+                        '增加课堂评价要素，关联校管驾驶舱和华为Edge浏览器系统。'
+                    ];
+                    break;
+                case 'p3':
+                    versionPlanContent = [
+                        '解决重点问题：推出西红柿炒鸡蛋应用和日常作业收集系统，满足一对一辅导场景需求。',
+                        '解决日常作业：拓展学科，优化迭代日常作业反馈，探索更快更低成本的作业批改、收集方案。'
+                    ];
+                    break;
+                case 'p4':
+                    versionPlanContent = [
+                        'Version1.以github社区Edge浏览器为试点，构建基础框架，完成各视角需求核心功能。',
+                        'Version2.全面优化Edge浏览器系统，将功能补全以扩展到全部校区进行使用。'
+                    ];
+                    break;
+                case 'p5':
+                    versionPlanContent = [
+                        'Version1. 优化迭代整合德育一对一产品，让场景和操作归一。',
+                        'Version2. 将德育AI练习迭代升级并融合进德育一对一产品中，加入工作指南和优秀案例，作为日常练习和技巧传授。',
+                        'Version3. 将负面心理处置加入其中，接入员工、心理老师角色，将整体平台形成闭环的德育工作平台。'
+                    ];
+                    break;
+                case 'p6':
+                    versionPlanContent = [
+                        'Version.1 预报名外呼电话营销系统',
+                        '2. 预报名优惠券营销系统',
+                        '3.预报名招生系统修改及招生财务系统修改'
+                    ];
+                    break;
+                case 'p7':
+                    versionPlanContent = [
+                        'Version1.搭建基础框架，将基础信息收集进平台，先以师生比和军令状为抓手进行构建。',
+                        'Version2.迭代升级，加入更多指标项，优化分析层级，由AI给出操作建议。'
+                    ];
+                    break;
+
+                case 'p9':
+                    versionPlanContent = [
+                        'Version.1 构建核心班日志自动收集和管理系统。',
+                        'Version2. 优化随手记模块，让记录更加方便快捷',
+                        'Version3. 增加AI确定目标达成并提供建议的功能'
+                    ];
+                    break;
+                default:
+                    versionPlanContent = [
+                        '根据项目需求制定相应的产品方案。',
+                        '提供系统化的解决方案和实施计划。',
+                        '确保项目目标的有效达成和持续优化。'
+                    ];
+            }
+            
+            // Determine which content to show
+             const contentToShow = isShowingVersionPlan ? versionPlanContent : (data.problems || []);
+             const titleText = isShowingVersionPlan ? '产品方案 VERSION PLAN' : '核心解决的问题 CORE SOLUTIONS';
+             const buttonText = isShowingVersionPlan ? '核心问题' : '产品方案';
+            
+            // Hide the separate project overview container for all projects
+            projectOverviewContainer.style.display = 'none';
+            
+            // Generate content HTML - always show the toggle functionality for all projects
+            let contentHtml = '';
+            
+            // Add the toggle functionality section
+            if (contentToShow.length > 0) {
+                const contentList = contentToShow.map((item, index) => {
+                     const prefix = isShowingVersionPlan ? `# Version.${index + 1}` : `#${index + 1}`;
+                     return `
+                         <div class="flex items-start mb-3">
+                             <span class="text-lg font-black text-blue-600 mr-3 mt-1 flex-shrink-0">${prefix}</span>
+                             <p class="text-base text-gray-700 font-medium">${item}</p>
+                         </div>
+                     `;
+                 }).join('');
+                
+                contentHtml += `
+                    <div class="bg-white/50 p-6 rounded-xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-bold text-lg">${titleText}</h4>
+                            <button id="toggle-content-btn" class="bg-white/30 hover:bg-white/50 text-gray-600 hover:text-gray-800 p-2 rounded-lg transition-all duration-200 backdrop-blur-sm border border-white/20">
+                                 <i class="fas fa-exchange-alt text-sm"></i>
+                             </button>
+                        </div>
+                        ${contentList}
+                    </div>
+                `;
+            } else {
+                // If no content to show, create a placeholder with toggle functionality
+                contentHtml += `
+                    <div class="bg-white/50 p-6 rounded-xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-bold text-lg">${titleText}</h4>
+                            <button id="toggle-content-btn" class="bg-white/30 hover:bg-white/50 text-gray-600 hover:text-gray-800 p-2 rounded-lg transition-all duration-200 backdrop-blur-sm border border-white/20">
+                                 <i class="fas fa-exchange-alt text-sm"></i>
+                             </button>
+                        </div>
+                        <p class="text-gray-500">暂无内容</p>
+                    </div>
+                `;
+            }
+
+            projectDetailContent.innerHTML = contentHtml;
+            
+            // Add event listener for toggle button
+            const toggleBtn = document.getElementById('toggle-content-btn');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    isShowingVersionPlan = !isShowingVersionPlan;
+                    renderProjectContent(projectId);
+                });
+            }
+        }
+        
+        projectTabs.addEventListener('click', (e) => {
+            const target = e.target.closest('button');
+            if (!target) return;
+
+            projectTabs.querySelectorAll('.project-tab').forEach(tab => {
+                tab.classList.remove('highlight-bg', 'text-white');
+                tab.classList.add('bg-gray-200');
+            });
+            target.classList.add('highlight-bg', 'text-white');
+            target.classList.remove('bg-gray-200');
+
+            updateUI(target.dataset.project);
+        });
+
+        // Project navigation order
+        const projectOrder = ['global', 'p1', 'p2', 'p3', 'p4', 'p5', 'p7', 'p9', 'p6'];
+        
+        // Get current project
+        function getCurrentProject() {
+            const currentTab = document.querySelector('.project-tab.highlight-bg');
+            return currentTab ? currentTab.dataset.project : 'global';
+        }
+        
+        // Navigate to previous project
+        function navigateToPrevious() {
+            const currentProject = getCurrentProject();
+            const currentIndex = projectOrder.indexOf(currentProject);
+            const prevIndex = currentIndex > 0 ? currentIndex - 1 : projectOrder.length - 1;
+            const prevProject = projectOrder[prevIndex];
+            
+            // Click the corresponding tab
+            const prevTab = document.querySelector(`[data-project="${prevProject}"]`);
+            if (prevTab) {
+                prevTab.click();
+            }
+        }
+        
+        // Navigate to next project
+        function navigateToNext() {
+            const currentProject = getCurrentProject();
+            const currentIndex = projectOrder.indexOf(currentProject);
+            const nextIndex = currentIndex < projectOrder.length - 1 ? currentIndex + 1 : 0;
+            const nextProject = projectOrder[nextIndex];
+            
+            // Click the corresponding tab
+            const nextTab = document.querySelector(`[data-project="${nextProject}"]`);
+            if (nextTab) {
+                nextTab.click();
+            }
+        }
+
+        // Navigation button event listeners
+        document.getElementById('prev-btn-header').addEventListener('click', () => {
+            navigateToPrevious();
+        });
+        
+        document.getElementById('next-btn-header').addEventListener('click', () => {
+            navigateToNext();
+        });
+
+        // Keyboard event listeners for arrow keys
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                navigateToPrevious();
+            } else if (e.key === 'ArrowRight') {
+                navigateToNext();
+            }
+        });
+
+        // returnToGlobal function removed - now using navigateToPrevious/navigateToNext
+
+        // Initial render
+        updateUI('global');
+
+        // Chart.js
+        const ctx = document.getElementById('resourceChart').getContext('2d');
+        const resourceChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['办公侧支持', '运营侧支持'],
+                datasets: [{
+                    label: '资源投入',
+                    data: [75, 25],
+                    backgroundColor: ['#4D6BFE', '#E0E0E0'],
+                    borderColor: '#ffffff',
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { font: { family: "'Noto Sans SC', sans-serif", size: 14, weight: 'bold' } } },
+                    tooltip: { callbacks: { label: (context) => `${context.label}: ${context.raw}%` } }
+                },
+                cutout: '70%'
+            }
+        });
+
+        // 显示指定版本的函数
+        function showVersion(versionId) {
+            // 更新按钮状态
+            document.querySelectorAll('.version-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-blue-500', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+                if (btn.dataset.version === versionId) {
+                    btn.classList.add('active', 'bg-blue-500', 'text-white');
+                    btn.classList.remove('bg-gray-200', 'text-gray-700');
+                }
+            });
+            
+            // 更新内容可见性
+            document.querySelectorAll('.version-content').forEach(content => {
+                content.classList.remove('active');
+                content.classList.add('opacity-0', 'translate-x-full');
+            });
+            
+            const targetContent = document.getElementById(`version-${versionId}`);
+            if (targetContent) {
+                setTimeout(() => {
+                    targetContent.classList.add('active');
+                    targetContent.classList.remove('opacity-0', 'translate-x-full');
+                }, 150);
+            }
+        }
+
+        // Version switching functionality
+         document.addEventListener('DOMContentLoaded', () => {
+             document.addEventListener('click', (e) => {
+                 if (e.target.classList.contains('version-btn')) {
+                     const targetVersion = e.target.dataset.version;
+                     
+                     // Update button states
+                     document.querySelectorAll('.version-btn').forEach(btn => {
+                         btn.classList.remove('active', 'bg-blue-500', 'text-white');
+                         btn.classList.add('bg-gray-200', 'text-gray-700');
+                     });
+                     e.target.classList.add('active', 'bg-blue-500', 'text-white');
+                     e.target.classList.remove('bg-gray-200', 'text-gray-700');
+                     
+                     // Update content visibility with smooth transition
+                     document.querySelectorAll('.version-content').forEach(content => {
+                         content.classList.remove('active');
+                         content.classList.add('opacity-0', 'translate-x-full');
+                     });
+                     
+                     const targetContent = document.getElementById(`version-${targetVersion}`);
+                     if (targetContent) {
+                         setTimeout(() => {
+                             targetContent.classList.add('active');
+                             targetContent.classList.remove('opacity-0', 'translate-x-full');
+                         }, 150);
+                     }
+                 }
+             });
+         });
+    </script>
+</body>
+</html>
