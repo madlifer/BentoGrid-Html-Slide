@@ -13,4 +13,4 @@ Note: The code is entirely AI-generated. Please use AI when modifying this docum
 
 
 
-SHOWCASE: https://showcase.produck.cn	
+SHOWCASE: [https://showcase.produck.cn/huibao.html	](https://showcase.produck.cn/huibao.html)
